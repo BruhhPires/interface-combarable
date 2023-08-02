@@ -7,36 +7,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import entities.Employee;
+
 public class Program {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		List<String> list = new ArrayList<>();
-		String path = "J:\\WS-ECLIPSE\\Interface-Comparable\\in3.txt";
+		List<Employee> list = new ArrayList<>();  // AGORA A LISTA É DE FUNCIONARIOS
+		String path = "J:\\WS-ECLIPSE\\Interface-Comparable2\\in3.txt";
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 			
-			String name = br.readLine();
-			while(name != null) {
-				list.add(name);
-				name = br.readLine();
+			String employeeCsv = br.readLine();
+			while(employeeCsv != null) {
+				String[] fields = employeeCsv.split(","); // SEPARAR POR , PARA LER
+				list.add(new Employee(fields[0], Double.parseDouble(fields[1]))); 
+				employeeCsv = br.readLine();
 			}
 			
-			Collections.sort(list);  // OPERAÇÃO PADRÃO PRA ORDENAR LISTA
-			for(String s : list) {
-				System.out.println(s);
+			Collections.sort(list);  
+			for(Employee emp : list) {
+				System.out.println(emp.getName() + ", "+ emp.getSalary());
 			}
 						
 			
 		} catch (IOException e ) {
 			System.out.println("Error: " + e.getMessage());
 		}
-		
-		
-		
-		
-
 	}
-
 }
